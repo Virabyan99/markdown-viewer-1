@@ -184,8 +184,18 @@
 
 .markdown-body pre {
   padding: 16px;
-  border-radius: 6px;
+  border-radius: var(--radius-md);
   overflow: auto;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 85%;
+  line-height: 1.45;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.markdown-body code {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  padding: 0.2em 0.4em;
+  border-radius: 6px;
 }
 
 .markdown-body table {
@@ -208,8 +218,8 @@
 
 /* Light theme styles */
 .light .markdown-body {
-  background-color: #ffffff;
-  color: #24292e;
+  background-color: var(--background);
+  color: var(--foreground);
 }
 
 .light .markdown-body h1,
@@ -218,36 +228,34 @@
 .light .markdown-body h4,
 .light .markdown-body h5,
 .light .markdown-body h6 {
-  color: #24292e;
+  color: var(--foreground);
 }
 
 .light .markdown-body code {
-  background-color: rgba(27, 31, 35, 0.05);
-  color: #d73a49;
-  padding: 0.2em 0.4em;
-  border-radius: 6px;
+  background-color: var(--muted);
+  color: var(--destructive);
 }
 
 .light .markdown-body pre {
-  background-color: #f6f8fa;
+  background-color: var(--card);
 }
 
 .light .markdown-body a {
-  color: #0366d6;
+  color: var(--primary);
 }
 
 .light .markdown-body tr:nth-child(even) {
-  background-color: #f6f8fa;
+  background-color: var(--muted);
 }
 
 .light .markdown-body blockquote {
-  color: #6a737d;
+  color: var(--muted-foreground);
 }
 
 /* Dark theme styles */
 .dark .markdown-body {
-  background-color: #0d1117;
-  color: #c9d1d9;
+  background-color: var(--background);
+  color: var(--foreground);
 }
 
 .dark .markdown-body h1,
@@ -256,30 +264,205 @@
 .dark .markdown-body h4,
 .dark .markdown-body h5,
 .dark .markdown-body h6 {
-  color: #c9d1d9;
+  color: var(--foreground);
 }
 
 .dark .markdown-body code {
-  background-color: #161b22;
-  color: #58a6ff;
-  padding: 0.2em 0.4em;
-  border-radius: 6px;
+  background-color: var(--card);
+  color: var(--primary);
 }
 
 .dark .markdown-body pre {
-  background-color: #161b22;
+  background-color: var(--card);
 }
 
 .dark .markdown-body a {
-  color: #58a6ff;
+  color: var(--primary);
 }
 
 .dark .markdown-body tr:nth-child(even) {
-  background-color: #161b22;
+  background-color: var(--muted);
 }
 
 .dark .markdown-body blockquote {
-  color: #8b949e;
+  color: var(--muted-foreground);
+}
+
+/* Syntax highlighting for light theme - Elegant and subtle */
+.light .markdown-body .hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 1em;
+  color: #2d3748; /* Soft slate */
+  background: #f7fafc; /* Light gray-blue */
+}
+
+.light .markdown-body .hljs-comment,
+.light .markdown-body .hljs-quote {
+  color: #718096; /* Cool gray */
+  font-style: italic;
+}
+
+.light .markdown-body .hljs-keyword,
+.light .markdown-body .hljs-selector-tag,
+.light .markdown-body .hljs-subst {
+  color: #e53e3e; /* Vibrant red */
+  font-weight: bold;
+}
+
+.light .markdown-body .hljs-number,
+.light .markdown-body .hljs-literal,
+.light .markdown-body .hljs-variable,
+.light .markdown-body .hljs-template-variable,
+.light .markdown-body .hljs-tag .hljs-attr {
+  color: #3182ce; /* Bright blue */
+}
+
+.light .markdown-body .hljs-string,
+.light .markdown-body .hljs-doctag {
+  color: #2f855a; /* Deep green */
+}
+
+.light .markdown-body .hljs-title,
+.light .markdown-body .hljs-section,
+.light .markdown-body .hljs-selector-id {
+  color: #805ad5; /* Rich purple */
+}
+
+.light .markdown-body .hljs-type,
+.light .markdown-body .hljs-class .hljs-title {
+  color: #d69e2e; /* Warm gold */
+}
+
+.light .markdown-body .hljs-tag,
+.light .markdown-body .hljs-name,
+.light .markdown-body .hljs-attribute {
+  color: #e53e3e; /* Matching keywords */
+}
+
+.light .markdown-body .hljs-regexp,
+.light .markdown-body .hljs-link {
+  color: #2b6cb0; /* Ocean blue */
+}
+
+.light .markdown-body .hljs-symbol,
+.light .markdown-body .hljs-bullet {
+  color: #48bb78; /* Fresh green */
+}
+
+.light .markdown-body .hljs-built_in,
+.light .markdown-body .hljs-builtin-name {
+  color: #805ad5; /* Purple for builtins */
+}
+
+.light .markdown-body .hljs-meta {
+  color: #a0aec0; /* Light slate */
+  font-weight: bold;
+}
+
+.light .markdown-body .hljs-deletion {
+  background: #fed7d7; /* Soft red */
+}
+
+.light .markdown-body .hljs-addition {
+  background: #c6f6d5; /* Soft green */
+}
+
+.light .markdown-body .hljs-emphasis {
+  font-style: italic;
+}
+
+.light .markdown-body .hljs-strong {
+  font-weight: bold;
+}
+
+/* Syntax highlighting for dark theme - Bold and luxurious */
+.dark .markdown-body .hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 1em;
+  color: #e2e8f0; /* Light silver */
+  background: #1a202c; /* Deep charcoal */
+  border: 1px solid #2d3748; /* Subtle border */
+}
+
+.dark .markdown-body .hljs-comment,
+.dark .markdown-body .hljs-quote {
+  color: #718096; /* Muted slate */
+  font-style: italic;
+}
+
+.dark .markdown-body .hljs-keyword,
+.dark .markdown-body .hljs-selector-tag,
+.dark .markdown-body .hljs-subst {
+  color: #ff6b6b; /* Neon coral */
+  font-weight: bold;
+}
+
+.dark .markdown-body .hljs-number,
+.dark .markdown-body .hljs-literal,
+.dark .markdown-body .hljs-variable,
+.dark .markdown-body .hljs-template-variable,
+.dark .markdown-body .hljs-tag .hljs-attr {
+  color: #63b3ed; /* Electric blue */
+}
+
+.dark .markdown-body .hljs-string,
+.dark .markdown-body .hljs-doctag {
+  color: #f6e05e; /* Bright yellow */
+}
+
+.dark .markdown-body .hljs-title,
+.dark .markdown-body .hljs-section,
+.dark .markdown-body .hljs-selector-id {
+  color: #b794f4; /* Luminous purple */
+}
+
+.dark .markdown-body .hljs-type,
+.dark .markdown-body .hljs-class .hljs-title {
+  color: #f6ad55; /* Warm orange */
+}
+
+.dark .markdown-body .hljs-tag,
+.dark .markdown-body .hljs-name,
+.dark .markdown-body .hljs-attribute {
+  color: #ff6b6b; /* Matching keywords */
+}
+
+.dark .markdown-body .hljs-regexp,
+.dark .markdown-body .hljs-link {
+  color: #68d391; /* Vivid green */
+}
+
+.dark .markdown-body .hljs-symbol,
+.dark .markdown-body .hljs-bullet {
+  color: #4fd1c5; /* Teal accent */
+}
+
+.dark .markdown-body .hljs-built_in,
+.dark .markdown-body .hljs-builtin-name {
+  color: #b794f4; /* Purple for builtins */
+}
+
+.dark .markdown-body .hljs-meta {
+  color: #a0aec0; /* Light slate */
+  font-weight: bold;
+}
+
+.dark .markdown-body .hljs-deletion {
+  background: #742a2a; /* Dark red */
+}
+
+.dark .markdown-body .hljs-addition {
+  background: #2f855a; /* Dark green */
+}
+
+.dark .markdown-body .hljs-emphasis {
+  font-style: italic;
+}
+
+.dark .markdown-body .hljs-strong {
+  font-weight: bold;
 }
 
 @layer base {

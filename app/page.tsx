@@ -63,7 +63,7 @@ export default function Home() {
 
           <Pagination className="mt-4">
             <PaginationContent>
-              <PaginationItem>
+              <PaginationItem className="cursor-pointer">
                 <PaginationPrevious
                   onClick={() => setCurrentPage((p) => Math.max(0, p - 1))}
                   className={currentPage === 0 ? "pointer-events-none opacity-50" : ""}
@@ -74,7 +74,7 @@ export default function Home() {
                 Page {currentPage + 1} of {htmlPages.length}
               </PaginationItem>
 
-              <PaginationItem>
+              <PaginationItem className="cursor-pointer">
                 <PaginationNext
                   onClick={() =>
                     setCurrentPage((p) => Math.min(htmlPages.length - 1, p + 1))

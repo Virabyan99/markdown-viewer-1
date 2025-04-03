@@ -17,11 +17,11 @@ export default function ThemeToggle() {
   };
 
   if (!mounted) {
-    return <button className="p-2"><Sun /></button>;
+    return <button aria-label="Toggle dark mode" className="p-2"><Sun /></button>;
   }
 
   return (
-    <button onClick={toggleTheme} className="p-2">
+    <button aria-label="Toggle dark mode" onClick={toggleTheme} className="p-2">
       {resolvedTheme === "light" ? <Moon /> : <Sun />}
     </button>
   );
