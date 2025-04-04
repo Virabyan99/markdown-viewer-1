@@ -1,72 +1,80 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { cn } from "@/lib/utils"
-import { Card } from "@/components/ui/card"
+import { useState, useRef } from "react";
 
 export default function Dropzone({
   onFileContent,
 }: {
-  onFileContent: (text: string) => void
+  onFileContent: (text: string) => void;
 }) {
-  const [isDragging, setIsDragging] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-  const [fileName, setFileName] = useState<string | null>(null)
+  const [isDragging, setIsDragging] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Handle file drop event
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault()
-    e.stopPropagation()
-    setIsDragging(false)
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
 
-    const file = e.dataTransfer.files[0] // Limit to one file
-    if (!file) return
+    const file = e.dataTransfer.files[0];
+    if (!file || !file.name.endsWith(".md")) return;
 
-    // Validate file type (only .md allowed)
-    if (!file.name.endsWith(".md")) {
-      setError("Only .md files are allowed.")
-      return
-    }
-
-    // File is valid: update state and read content
-    setFileName(file.name)
-    setError(null) // Clear any previous errors
-
-    const reader = new FileReader()
+    const reader = new FileReader();
     reader.onload = (event) => {
-      const text = event.target?.result
+      const text = event.target?.result;
       if (typeof text === "string") {
-        onFileContent(text) // Pass content to parent
+        onFileContent(text);
       }
-    }
-    reader.readAsText(file)
-  }
+    };
+    reader.readAsText(file);
+  };
+
+  // Handle file input change when clicking
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !file.name.endsWith(".md")) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const text = event.target?.result;
+      if (typeof text === "string") {
+        onFileContent(text);
+      }
+    };
+    reader.readAsText(file);
+  };
+
+  // Trigger file input click when the image is clicked
+  const handleClick = () => {
+    fileInputRef.current?.click();
+  };
 
   return (
-    <Card
+    <div
       onDragOver={(e) => {
-        e.preventDefault()
-        setIsDragging(true) // Highlight when dragging over
+        e.preventDefault();
+        setIsDragging(true);
       }}
       onDragLeave={(e) => {
-        e.preventDefault()
-        setIsDragging(false) // Remove highlight
+        e.preventDefault();
+        setIsDragging(false);
       }}
       onDrop={handleDrop}
-      className={cn(
-        "flex items-center justify-center border-2 border-dashed transition-colors",
-        fileName && !error ? "h-16" : "h-48", // Collapse to h-16 if file is dropped and no error
-        isDragging ? "border-primary bg-muted" : "border-border bg-background"
-      )}
+      onClick={handleClick}
+      className="flex items-center justify-center cursor-pointer"
     >
-      <div className="text-center">
-        {fileName ? (
-          <p className="mb-2">File: <strong>{fileName}</strong></p>
-        ) : (
-          <p className="mb-2">Drag & drop a <strong>.md</strong> file here</p>
-        )}
-        {error && <p className="text-destructive">{error}</p>}
-      </div>
-    </Card>
-  )
+      <input
+        type="file"
+        accept=".md"
+        ref={fileInputRef}
+        style={{ display: "none" }}
+        onChange={handleFileChange}
+      />
+      <img
+        src="/transparent_icon_128.png"
+        alt="Upload file"
+        className="w-32 h-32"
+      />
+    </div>
+  );
 }

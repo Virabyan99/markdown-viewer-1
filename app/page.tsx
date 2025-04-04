@@ -35,32 +35,18 @@ export default function Home() {
     setCurrentPage(0);
   };
 
-  if (!mounted) {
-    return (
-      <main className="flex flex-col items-center gap-6 p-6">
-        <h1 className="text-2xl font-bold">Markdown Viewer</h1>
-        <Dropzone onFileContent={handleFileContent} />
-        <p>Loading...</p>
-      </main>
-    );
-  }
-
   return (
-    <main className="flex flex-col items-center gap-6 p-6">
-      <h1 className="text-2xl font-bold">Markdown Viewer</h1>
-
-      <Dropzone onFileContent={handleFileContent} />
-
-      {htmlPages.length > 0 && (
+    <main className="flex min-h-screen flex-col justify-center items-center gap-6">
+      {htmlPages.length === 0 ? (
+        <Dropzone onFileContent={handleFileContent} />
+      ) : (
         <>
-          <div className="w-full max-w-3xl p-4 border rounded">
-            <h2 className="mb-4 font-semibold">Markdown Preview:</h2>
+          <div className="w-full max-w-3xl p-4">
             <article
               className="markdown-body rounded-md p-2"
               dangerouslySetInnerHTML={{ __html: htmlPages[currentPage] }}
             />
           </div>
-
           <Pagination className="mt-4">
             <PaginationContent>
               <PaginationItem className="cursor-pointer">
@@ -69,11 +55,9 @@ export default function Home() {
                   className={currentPage === 0 ? "pointer-events-none opacity-50" : ""}
                 />
               </PaginationItem>
-
               <PaginationItem className="px-4 text-sm text-muted-foreground">
                 Page {currentPage + 1} of {htmlPages.length}
               </PaginationItem>
-
               <PaginationItem className="cursor-pointer">
                 <PaginationNext
                   onClick={() =>
